@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IngressosFácil - Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+
+    <main class="container py-5">
+        <h1 class="h3 text-center mb-4">IngressosFácil</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h5 mb-3">Criar conta</h2>
+
+                        <div id="alerta-cadastro" class="alert" role="alert" hidden></div>
+
+                        <form id="form-cadastro">
+                            <div class="mb-3">
+                                <label for="nome" class="form-label">Nome completo</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="voce@exemplo.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="senha" name="senha"
+                                    placeholder="Mínimo de 8 caracteres" minlength="8" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoria" class="form-label">Categoria preferida</label>
+                                <select class="form-select" id="categoria" name="categoria" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="show">Shows</option>
+                                    <option value="comedia">Comédia</option>
+                                    <option value="esporte">Esportes</option>
+                                    <option value="gastronomia">Gastronomia</option>
+                                </select>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="termos" name="termos" required>
+                                <label class="form-check-label" for="termos">Li e aceito os termos de uso</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== Elementos da página =====
+
+        const formCadastro = document.getElementById("form-cadastro");
+        const nome = document.getElementById("nome");
+        const email = document.getElementById("email");
+        const senha = document.getElementById("senha");
+        const categoria = document.getElementById("categoria");
+        const termos = document.getElementById("termos");
+        const alertaCadastro = document.getElementById("alerta-cadastro");
+
+        // ===== Função que mostra o alerta =====
+
+        function mostrarAlerta(texto, tipo) {
+            alertaCadastro.textContent = texto;                 // escreve a mensagem
+            alertaCadastro.className = "alert alert-" + tipo;   // troca as classes: define a cor
+            alertaCadastro.hidden = false;                      // mostra o alerta
+        }
+
+        // ===== Envio do formulário =====
+
+        formCadastro.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const usuario = {
+        nome: nome.value.trim(),
+        email: email.value.trim().toLowerCase(),
+        senha: senha.value,
+        categoria: categoria.value,
+        aceitouTermos: termos.checked
+    };
+
+    const nomeCategoria = categoria.selectedOptions[0].textContent;
+
+    mostrarAlerta(
+        `Cadastro realizado, ${usuario.nome}! E-mail: ${usuario.email}. Categoria preferida: ${nomeCategoria}.`,
+        "success"
+    );
+
+    formCadastro.reset();
+});
+
+    </script>
+</body>
+
+</html>
